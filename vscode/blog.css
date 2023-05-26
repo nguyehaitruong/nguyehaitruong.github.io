@@ -1,0 +1,139 @@
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+
+}
+ul{ list-style-type: none;}
+body{
+    font-family: roboto;
+
+}
+.top{
+    background-color: #fff;
+    display: flex;
+    height: 95px;
+    width: 80%;
+    justify-content: space-between;
+    margin-left: 10%;
+}
+.top-right{
+    display: flex   ;  
+}
+.top h2{
+    font-size: 25px;
+    text-align: center;
+    display: flex;
+    align-items:center;
+    text-transform: uppercase;
+}
+.top-right input{
+    height: 50px;
+    width: 300px;
+    border-radius: 10px;
+    border-bottom: orange;
+    margin: 15px;
+
+}
+.top-right button{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    margin: 15px;
+}
+.top-left button{ height: 60px;
+    width: 150px;
+    background-color: aqua;
+    margin: 15px;
+    border-radius: 20px;
+}
+.logo{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    font-size: 5px;
+    margin:5px ;
+   
+}
+.sidebar {
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 70px;
+    background-color: orange;
+    
+  }
+.menu .main-menu {
+    display: flex;
+    margin-left: 100px;
+  }
+  
+  .menu .main-menu .menu-item {
+    text-transform: uppercase;
+    margin-right: 24px;
+    position: relative;
+  
+    height: 75px;
+    display: flex;
+    align-items: center;
+  
+    cursor: pointer;
+  }
+  
+  .menu .main-menu .menu-item:hover {
+    color: #c4c4c4;
+  }
+  
+  .sub-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+  
+    width: 200px;
+    box-shadow: 0 0 10px rgba(0,0,0,.15);
+    background-color: #fff;
+    border-radius: 4px;
+  
+    display: none;
+  }
+  
+  .menu .main-menu .menu-item:hover .sub-menu {
+    display: block;
+  }
+  
+  .sub-menu-item {
+    font-size: 15px;
+    cursor: pointer;
+    padding: 16px;
+    text-align: center;
+    text-transform: none;
+    color: #464646;
+  }
+  
+  .sub-menu-item:hover {
+    background-color: #c4c4c4;
+    color: #fff;
+  }
+  .noti{
+    width: 60%;
+    height: 350px;
+    border: 3px solid #FFA500;
+    border-radius: 15px;
+    margin: 20px 20% 10px 20%;
+    text-align: center;
+    line-height: 3rem;
+  }
+  .noti ul{
+    font-size: 24px;
+  }
+
+  .daphathanh{
+    color: #FFA500;
+  }
+  .hot{
+    width: 80%;
+    margin-left: 10%;
+    background-color: aqua;
+    
+    
+  }
