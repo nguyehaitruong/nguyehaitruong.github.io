@@ -62,8 +62,8 @@ ul {list-style-type: none;}
   }
   .card p{ font-size: 30px;
  margin: 30px;
- text-transform: uppercase;
-color: aliceblue;}
+color: aliceblue;
+text-transform: uppercase;}
 .des1-1:hover{ background-color: aliceblue;}
 .des1-1:hover .card { display: block;}
 .des .card .snowflake {
