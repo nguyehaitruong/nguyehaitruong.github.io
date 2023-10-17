@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Student form</h2>
+  <form id="studentForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="birthday">Birthday:</label>
+      <input type="date" class="form-control" id="birthday">
+      <div id="alertBoxBirthday" class="alert alert-warning" style="display: none;">
+         nay mới ngày 18 
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="mobile">Mobile Phone:</label>
+      <input type="tel" class="form-control" id="mobile">
+      <div id="alertBoxMobile" class="alert alert-warning" style="display: none;">
+        sdt chỉ có 10 số
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="hometown">Hometown:</label>
+      <input type="text" class="form-control" id="hometown">
+    </div>
+    <button type="button" class="btn btn-primary" id="submitButton">Submit</button>
+    <button type="button" class="btn btn-primary" id="resetButton">Reset</button>
+  </form>
+
+  <h2>Student List</h2>
+  <button type="button" class="btn btn-danger" id="deleteButton">Delete </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Select</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Mobile Phone</th>
+        <th>Hometown</th>
+      </tr>
+    </thead>
+    <tbody id="studentTableBody">
+
+    </tbody>
+  </table>
+
+  
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>
