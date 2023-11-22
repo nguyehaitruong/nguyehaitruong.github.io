@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book borrow management</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <!--    <link rel="stylesheet" href="/vendor/font-awesome.min.css">-->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: my-navbar}"></div>
+<div class="container-fluid">
+<!--    <div class="row">-->
+<!--        <div class="col">-->
+<!--         -->
+<!--            -->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="row mb-2">
+        <div class="col text-center">
+            <h1>Đây là trang quản lý sách</h1>
+        </div>
+    </div>
+
+    <div class="row my-5">
+        <div class="col">
+            <a href="/create-student" class="btn btn-success">Create student</a>
+
+        </div>
+    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quản lý Sinh viên</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentModal">
+        Thêm mới Sinh viên
+    </button>
+
+
+    <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Thêm mới Sinh viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="addStudentModalBody">
+
+                    <div class="row">
+                        <div class="col">
+                            <form method="POST" th:action="@{/create-student}" th:object="${sachMuonThemMoi}">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" placeholder="Enter name" id="name"
+                                           th:field="*{name}">
+                                    <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                                         th:if="${#fields.hasErrors('name')}"
+                                         th:errors="*{name}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author">Author:</label>
+                                    <input type="text" class="form-control" placeholder="Enter author"
+                                           th:field="*{author}" id="author">
+                                    <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                                         th:if="${#fields.hasErrors('author')}"
+                                         th:errors="*{author}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="publishedYear">Publish year:</label>
+                                    <input type="number" class="form-control" placeholder="Enter name"
+                                           id="publishedYear" min="1990" th:field="*{publishedYear}"
+                                           max="2023">
+                                    <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                                         th:if="${#fields.hasErrors('publishedYear')}"
+                                         th:errors="*{publishedYear}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <textarea class="form-control" placeholder="Enter description" id="description"
+                                              th:field="*{description}"
+                                    ></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Category:</label>
+                                    <select class="form-control" th:field="*{categories}" id="categories" multiple="true">
+                                        <option th:each="cat : ${T(com.example.springmvc01.statics.BookCategory).values()}"
+                                                th:value="${cat}" th:text="${cat.value}"></option>
+                                    </select>
+                                    <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                                         th:if="${#fields.hasErrors('categories')}"
+                                         th:errors="*{categories}"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary px-4">Save</button>
+                                <a class="btn btn-secondary px-4" href="/students">Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function loadAddStudentForm() {
+            $.ajax({
+                url: 'students',
+                method: 'GET',
+                success: function (data) {
+                    $('#addStudentModalBody').html(data);
+                },
+                error: function () {
+                    console.error('Error loading add student form.');
+                }
+            });
+        }
+    </script>
+
+    </body>
+    </html>
+
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Published year</th>
+                    <th>Categories</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${dsSach}">
+                    <td th:text="${book.id}"></td>
+                    <td th:text="${book.name}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publishedYear}"></td>
+                    <td>
+                        <span class="badge badge-success mr-1" th:each="cat: ${book.categories}">
+                            <span th:text="${cat.value}"></span>
+                        </span>
+                    </td>
+                    <td th:text="${book.description}"></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="${'/update-book/' + book.id}"
+                        >
+                            <i class="far fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm"
+                           th:href="${'/delete-book/' + book.id}"
+                           th:data-confirm-delete="|Are you sure you want to delete this book?|"
+                           onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+                        >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
