@@ -1,0 +1,50 @@
+<div class="modal" id="student-creation-modal" th:fragment="student-creation-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Title</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="create-student-form" >
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" id="name"
+                               name="name"
+                        >
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">address:</label>
+                        <input type="text" class="form-control" placeholder="Enter address"
+                               id="address" name="address">
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">phone:</label>
+                        <input type="number" class="form-control" placeholder="Enter name"
+                               id="phone" name="phone">
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary px-4" id="save-student-btn">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
