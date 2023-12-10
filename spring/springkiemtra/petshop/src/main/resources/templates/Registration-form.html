@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+
+
+    <!-- Popper JS -->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/registration.js"></script>
+</head>
+<body>
+<div th:replace="~{fragments/navbar::my-navbar}"></div>
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">form đăng ký</h4>
+
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form id="create-Registration-form" >
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" id="name"
+                               name="name"
+                        >
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">phoneNumber:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" id="phoneNumber"
+                               name="phoneNumber"
+                        >
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">email:</label>
+                        <input type="text" class="form-control" placeholder="Enter name" id="email"
+                               name="email"
+                        >
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="bookingContent">bookingContent:</label>
+                        <input type="text" class="form-control" placeholder="Enter address"
+                               id="bookingContent" name="bookingContent">
+                        <div class="alert alert-danger bg-white border-0 pl-0 text-danger pt-1"
+                        ></div>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button class="btn btn-primary px-4" id="save-Registration-btn">Save</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>

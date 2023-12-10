@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sping_data_demo
+    username: root
+    password: Truong@2004
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    username: nguyenduchung200204
+    password: bhxr nglm afwf hdpo
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book borrow management</title>
+    <link rel="stylesheet" href="css/student.css">
+
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" href="/vendor/font-awesome.min.css">&ndash;&gt;-->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+<!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+
+
+    <!-- Popper JS -->
+<!--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--    <script src="js/.js"></script>-->
+</head>
+<body>
+<div th:replace="~{fragments/navbar-admin::my-navbar-admin}"></div>
+
+<div class="container-fluid">
+    <!--    <div class="row">-->
+    <!--        <div class="col">-->
+    <!--         -->
+    <!--            -->
+    <!--        </div>-->
+    <!--    </div>-->
+    <div class="row mb-2">
+        <div class="col text-center">
+            <h1>Đây là trang quản lý đơn đăng ký</h1>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>phoneNumber</th>
+                    <th>email</th>
+                    <th>bookingContent</th>
+                    <th>status</th>
+                    <th>creationTime</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dk : ${dsDangky}">
+                    <td th:text="${dk.id}"></td>
+                    <td th:text="${dk.name}"></td>
+                    <td th:text="${dk.phoneNumber}"></td>
+                    <td th:text="${dk.email}"></td>
+                    <td th:text="${dk.bookingContent}"></td>
+                    <td th:text="${dk.status}"></td>
+                    <td th:text="${dk.creationTime}"></td>
+
+                    <td>
+                        <a class="btn btn-primary btn-sm update-student-modal-open" th:attr="student-update-id=${dk.id}"
+                        >
+                            <i class="far fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm delete-student-btn" th:attr="student-id=${dk.id}">
+
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>-->
+<!--<script src="js/student.js"></script>-->
+
