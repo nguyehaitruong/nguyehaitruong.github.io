@@ -10,12 +10,16 @@ public class HomeController {
 
     @GetMapping("/")
     public String index() {
-        return "index";
+        return "client/index";
     }
 
     @GetMapping("/jd-page")
     public String jdPage() {
-        return "jd-page";
+        return "client/jd-page";
+    }
+    @GetMapping("/register")
+    public String showRegisterPage() {
+        return "client/register-employers";
     }
 
 }

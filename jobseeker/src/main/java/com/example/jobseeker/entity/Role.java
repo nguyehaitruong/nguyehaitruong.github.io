@@ -1,6 +1,8 @@
 package com.example.jobseeker.entity;
 
 import javax.persistence.*;
+
+import com.example.jobseeker.statics.Roles;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,7 +22,7 @@ public class Role {
 
     @Column(name = "name", length = 255)
     @Enumerated(EnumType.STRING)
-    String name;
+    Roles name;
 
     @Column(name = "description", length = 255)
     String description;

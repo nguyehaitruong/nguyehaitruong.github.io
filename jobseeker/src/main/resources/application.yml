@@ -12,16 +12,25 @@ spring:
     properties:
       dialect: org.hibernate.dialect.MySQL57Dialect
 
-#
-#  mail:
-#    host: smtp.gmail.com
-#    username: nguyenduchung200204
-#    password: bhxr nglm afwf hdpo
-#    port: 587
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-#
+
+  mail:
+    host: smtp.gmail.com
+    username: nguyenduchung200204
+    password: bhxr nglm afwf hdpo
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+application:
+  security:
+    jwt:
+      secretKey: de6aaeabadeccc598160172044da9c566242ae3bde6aaeabadeccc598160172044da9c566242ae3b
+      tokenValidityMilliseconds: 86400000
+      rememberMeTokenValiditySeconds: 25920000000
+    refreshToken:
+      tokenValidityMilliseconds: 259200000
+
