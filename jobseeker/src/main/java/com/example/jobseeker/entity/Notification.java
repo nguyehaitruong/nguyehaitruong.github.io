@@ -31,6 +31,6 @@ public class Notification {
     @Column(name = "content", length = 255)
     String content;
 
-    @Column(name = "read", length = 10)
+    @Column(name = "[read]", length = 10)
     String read;
 }

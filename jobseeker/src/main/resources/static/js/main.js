@@ -53,21 +53,21 @@ let filesDone = 0;
 let filesToDo = 0;
 let progressBar = document.getElementById("progress-bar");
 
-["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-  dropArea.addEventListener(eventName, preventDefaults, false);
-});
+// ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+//   dropArea.addEventListener(eventName, preventDefaults, false);
+// });
 
 function preventDefaults(e) {
   e.preventDefault();
   e.stopPropagation();
 }
 
-["dragenter", "dragover"].forEach((eventName) => {
-  dropArea.addEventListener(eventName, highlight, false);
-});
-["dragleave", "drop"].forEach((eventName) => {
-  dropArea.addEventListener(eventName, unhighlight, false);
-});
+// ["dragenter", "dragover"].forEach((eventName) => {
+//   dropArea.addEventListener(eventName, highlight, false);
+// });
+// ["dragleave", "drop"].forEach((eventName) => {
+//   dropArea.addEventListener(eventName, unhighlight, false);
+// });
 
 function highlight(e) {
   dropArea.classList.add("highlight");
@@ -76,7 +76,7 @@ function highlight(e) {
 function unhighlight(e) {
   dropArea.classList.remove("highlight");
 }
-dropArea.addEventListener("drop", handleDrop, false);
+// dropArea.addEventListener("drop", handleDrop, false);
 
 function handleDrop(e) {
   let dt = e.dataTransfer;
@@ -133,21 +133,50 @@ $(document).ready(function () {
     $('#registerButton').click( function() {
         console.log(5)
         var email = $('#emailInput').val();
-        console.log(email);
+
         var password = $('#passwordInput').val();
         var user = {
             email: email,
             password: password
         };
+        console.log(user);
 
         // Gửi yêu cầu AJAX POST đến API của bạn
         $.ajax({
             type: 'POST',
-            url: '/signup',
+            url: '/api/auth/signup',
             contentType: 'application/json',
             data: JSON.stringify(user),
             success: function(data) {
                 console.log(data);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+
+    $(document).ready(function () {
+    $('#employerLoginBtn').click(function() {
+        // Lấy dữ liệu đăng nhập từ form hoặc nơi khác
+        var username = $('.employerUsernameInput').val();
+        var password = $('.employerPasswordInput').val();
+        var user = {
+            username: username,
+            password: password
+        };
+        console.log(user)
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/auth/login',
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            success: function(data) {
+                console.log(data);
+
+
             },
             error: function(error) {
                 console.error('Error:', error);

@@ -18,8 +18,10 @@ public class HomeController {
         return "client/jd-page";
     }
     @GetMapping("/register")
-    public String showRegisterPage() {
-        return "client/register-employers";
+    public String showRegisterPage() {return "client/register-employers";}
+    @GetMapping("/login")
+    public String login() {
+        return "client/login-employers";
     }
 
 }
