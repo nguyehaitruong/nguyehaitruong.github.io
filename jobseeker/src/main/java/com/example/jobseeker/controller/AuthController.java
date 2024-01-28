@@ -3,13 +3,18 @@ package com.example.jobseeker.controller;
 import com.example.jobseeker.entity.RefreshToken;
 import com.example.jobseeker.entity.Role;
 import com.example.jobseeker.entity.User;
+import com.example.jobseeker.exception.ExistedUserException;
+import com.example.jobseeker.exception.RefreshTokenNotFoundException;
 import com.example.jobseeker.model.reponse.JwtResponse;
-import com.example.jobseeker.model.request.LoginRequest;
+import com.example.jobseeker.model.request.*;
 import com.example.jobseeker.repository.RefreshTokenRepository;
 import com.example.jobseeker.repository.RoleRepository;
 import com.example.jobseeker.repository.UserRepository;
 import com.example.jobseeker.security.CustomUserDetails;
 import com.example.jobseeker.security.JwtUtils;
+import com.example.jobseeker.service.EmailService;
+import com.example.jobseeker.service.RecruitmentService;
+import com.example.jobseeker.service.UserService;
 import com.example.jobseeker.statics.Roles;
 import lombok.AllArgsConstructor;
 
@@ -20,9 +25,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Optional;
@@ -43,42 +51,41 @@ public class AuthController {
     RefreshTokenRepository refreshTokenRepository;
     private PasswordEncoder passwordEncoder;
     private  JwtUtils jwtUtils;
+    private UserService userService;
+    private final EmailService emailService;
+    private RecruitmentService recruitmentService;
 
 
 
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        @PostMapping("/signupCandidate")
+        public ResponseEntity<?> registerCandidate(@Valid @RequestBody RegistrationRequest request) throws MessagingException {
+            Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
 
+            if (userOptional.isPresent()) {
+                return new ResponseEntity<>("Username is existed", HttpStatus.BAD_REQUEST);
+            } else {
+                User newUser = userService.registerUser(request);
+                emailService.verifyAccount(newUser.getId(), request.getEmail(), request.getEmail());
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
+        }
+        @PostMapping("/signupRecruiter")
+        public ResponseEntity<?> registerRecruiter(@Valid @RequestBody CreateRecruiterRequest request) throws MessagingException, ExistedUserException {
+            Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
 
-        // add check for email exists in DB
-        if (userRepository.existsByEmail(user.getEmail())) {
-            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+            if (userOptional.isPresent()) {
+                return new ResponseEntity<>("Username is existed", HttpStatus.BAD_REQUEST);
+            } else {
+                User newUser = recruitmentService.createRecruitment(request);
+                emailService.verifyAccount(newUser.getId(), request.getEmail(), request.getEmail());
+                return new ResponseEntity<>(null, HttpStatus.CREATED);
+            }
         }
 
-        // Set encoded password
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        // Tìm kiếm Role trong roleRepository với tên là "ROLE_USER"
-        Optional<Role> optionalRole = roleRepository.findByName(Roles.USER);
-
-// Kiểm tra xem Role có tồn tại hay không
-        if (optionalRole.isPresent()) {
-            // Nếu tìm thấy Role, lấy giá trị Role từ Optional
-            Role defaultRole = optionalRole.get();
-
-            // Đặt Role cho người dùng
-            user.setRoles(Collections.singleton(defaultRole));
-        } else {
-            // Nếu không tìm thấy, ném ngoại lệ với thông báo lỗi
-            throw new RuntimeException("Default role not found");
-        }
 
 
-        userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
-    }
     @PostMapping("/login")
     public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -103,8 +110,24 @@ public class AuthController {
                 .refreshToken(refreshToken)
                 .id(userDetails.getId())
                 .email(userDetails.getUsername())
-                .roles(roles)
+//                .roles(roles)
                 .build();
+
     }
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
+        try {
+            return ResponseEntity.ok(userService.refreshToken(request));
+        } catch (RefreshTokenNotFoundException | UsernameNotFoundException ex) {
+            return new ResponseEntity<>("Thông tin refreshToken không chính xác", HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        userService.logout();
+        return ResponseEntity.ok(null);
+    }
+
+
 
 }

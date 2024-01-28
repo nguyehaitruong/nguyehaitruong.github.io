@@ -132,28 +132,81 @@ function progressDone() {
 $(document).ready(function () {
     $('#registerButton').click( function() {
         console.log(5)
-        var email = $('#emailInput').val();
+        var email = document.getElementById('emailInput').value;
+        var password = document.getElementById('passwordInput').value;
+        var confirmPassword = document.getElementById('confirmPasswordInput').value;
+        var contactName = document.getElementById('contactNameInput').value;
+        var contactPhone = document.getElementById('contactPhoneInput').value;
+        var companyName = document.getElementById('companyNameInput').value;
+        var companyAddress = document.getElementById('companyAddressInput').value;
+        var city = document.getElementById('cityInput').value;
+        if (password !== confirmPassword) {
+            errorElement.textContent = "Mật khẩu không khớp";
+        } else {
+            var user = {
+                email: email,
+                password: password,
+                name: contactName,
+                phone: contactPhone,
+                companyname:companyName,
+                address:companyAddress,
+                city:city
 
-        var password = $('#passwordInput').val();
+
+            };
+            console.log(user);
+
+            // Gửi yêu cầu AJAX POST đến API của bạn
+            $.ajax({
+                type: 'POST',
+                url: '/api/auth/signupRecruiter',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+    });
+    $('#registerButton-ees').click( function() {
+        console.log(5)
+        var fullNameValue = document.getElementById("fullNameInput").value;
+        var emailValue = document.getElementById("emailInputees").value;
+        var phoneValue = document.getElementById("phoneInput").value;
+        var passwordValue = document.getElementById("passwordInputees").value;
+        var confirmPasswordValue = document.getElementById("confirmPasswordInput").value;
+        if (passwordValue !== confirmPasswordValue) {
+            errorElement.textContent = "Mật khẩu không khớp";
+        } else {
         var user = {
-            email: email,
-            password: password
+            email: emailValue,
+            password: passwordValue,
+            name: fullNameValue,
+            phone:phoneValue,
+
+
         };
         console.log(user);
+            $.ajax({
+                type: 'POST',
+                url: '/api/auth/signupCandidate',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
 
         // Gửi yêu cầu AJAX POST đến API của bạn
-        $.ajax({
-            type: 'POST',
-            url: '/api/auth/signup',
-            contentType: 'application/json',
-            data: JSON.stringify(user),
-            success: function(data) {
-                console.log(data);
-            },
-            error: function(error) {
-                console.error('Error:', error);
-            }
-        });
+
     });
 });
 
@@ -163,7 +216,7 @@ $(document).ready(function () {
         var username = $('.employerUsernameInput').val();
         var password = $('.employerPasswordInput').val();
         var user = {
-            username: username,
+            email: username,
             password: password
         };
         console.log(user)
@@ -174,7 +227,8 @@ $(document).ready(function () {
             contentType: 'application/json',
             data: JSON.stringify(user),
             success: function(data) {
-                console.log(data);
+                console.log(user);
+
 
 
             },
@@ -183,7 +237,29 @@ $(document).ready(function () {
             }
         });
     });
-});
+        $('.btn-submit-recuitment').click(function()  {
+
+            var formData = {
+                title: $('#title').val(),
+                location: $('#location').val(),
+
+            };
+            console.log(formData)
+        $.ajax({
+            type: 'POST',
+            url: '/published-recruitments/create',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function (response) {
+                console.log('Job created successfully');
+
+            },
+            error: function (error) {
+                console.error('Error creating job:', error.responseJSON.message);
+
+            }
+        });
+});})
 
 
 

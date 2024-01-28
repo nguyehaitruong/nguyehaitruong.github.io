@@ -28,40 +28,40 @@ public class Job  extends  BaseEntity {
     @Column(name = "title", length = 255)
     String title;
 
-    @Column(name = "details", columnDefinition = "TEXT")
+    @Column(name = "details",nullable = true, columnDefinition = "TEXT")
     String details;
 
-    @Column(name = "yoe_from")
-    int yoeFrom;
+    @Column(name = "yoe_from",nullable = true)
+    Date yoeFrom;
 
-    @Column(name = "yoe_to")
-    int yoeTo;
+    @Column(name = "yoe_to",nullable = true)
+    Date yoeTo;
 
-    @Column(name = "literacy", length = 20)
+    @Column(name = "literacy",nullable = true, length = 20)
     String literacy;
 
-    @Column(name = "work_type", length = 20)
+    @Column(name = "work_type",nullable = true, length = 20)
     String workType;
 
-    @Column(name = "benefits", length = 255)
+    @Column(name = "benefits",nullable = true, length = 255)
     String benefits;
 
-    @Column(name = "salary", length = 255)
+    @Column(name = "salary",nullable = true, length = 255)
     String salary;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "status",nullable = true, length = 20)
     String status;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "publish_date_time")
+    @Column(name = "publish_date_time",nullable = true)
     Date publishDateTime;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "due_date_time")
+    @Column(name = "due_date_time",nullable = true)
     Date dueDateTime;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "close_date_time")
+    @Column(name = "close_date_time",nullable = true)
     Date closeDateTime;
 
 

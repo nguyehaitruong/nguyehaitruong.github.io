@@ -29,18 +29,19 @@ public class Recruiter extends BaseEntity {
     @Column(name = "introduce", nullable = true, columnDefinition = "TEXT")
     private String introduce;
 
-    @Column(name = "contact_info", nullable = true, length = 255)
-    private String contactInfo;
+
 
     @Column(name = "avatar", nullable = true, length = 255)
     private String avatar;
 
-    @Column(name = "phone", nullable = false)
-    private String phone;
+    @Column (name = "city")
+    private  String city;
 
 
     @Column(name = "deleted_at", nullable = true)
     private Timestamp deletedAt;
+    @Column(name = "company_name")
+    private String companyname;
 
     // Constructors, getters, setters, and other methods
 

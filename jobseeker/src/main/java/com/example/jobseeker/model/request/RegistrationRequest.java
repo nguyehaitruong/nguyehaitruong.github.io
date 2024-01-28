@@ -9,13 +9,21 @@ import javax.validation.constraints.Size;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LoginRequest {
+public class RegistrationRequest {
 
-    @NotBlank(message = "Email must not be blank")
+    @NotBlank
+    @Size(max = 50)
+    String name;
+
+    @NotBlank
     @Size(max = 50)
     String email;
 
     @NotBlank
     String password;
+
+    @NotBlank
+    @Size(max = 11)
+    String phone;
 
 }

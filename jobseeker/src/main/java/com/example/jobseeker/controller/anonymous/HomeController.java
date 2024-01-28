@@ -17,11 +17,14 @@ public class HomeController {
     public String jdPage() {
         return "client/jd-page";
     }
-    @GetMapping("/register")
+    @GetMapping("//register-employer")
     public String showRegisterPage() {return "client/register-employers";}
     @GetMapping("/login")
     public String login() {
         return "client/login-employers";
     }
+    @GetMapping("/register-candidate")
+    public String showRegisterEmployeesPage() {return "client/register-employees";}
+
 
 }

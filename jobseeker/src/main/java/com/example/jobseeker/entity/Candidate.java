@@ -22,21 +22,7 @@ public class Candidate extends  BaseEntity{
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    @Column(name = "avatar", columnDefinition = "TEXT")
-    String avatar;
 
-    @Column(name = "name", length = 30)
-    String name;
-
-    @Column(name = "gender", length = 10)
-    String gender; // Sử dụng String thay vì Enum
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_birth")
-    Date dateOfBirth;
-
-    @Column(name = "phone", length = 11)
-    String phone;
 
     @Column(name = "experience", columnDefinition = "TEXT")
     String experience;

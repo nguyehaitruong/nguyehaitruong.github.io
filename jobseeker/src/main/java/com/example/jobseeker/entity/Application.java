@@ -1,6 +1,8 @@
 package com.example.jobseeker.entity;
 
 import javax.persistence.*;
+
+import com.example.jobseeker.statics.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -37,9 +39,8 @@ public class Application {
     Date applicationTime;
 
     @Enumerated(EnumType.STRING)
-    @ManyToOne
-    @JoinColumn(name = "status", nullable = false)
-    ApplicationStatus applicationStatus;
+    @Column(name = "status")
+    Status status;
 
     // Constructors, getters, setters, and other methods
 }
