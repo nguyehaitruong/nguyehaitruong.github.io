@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping
@@ -22,10 +24,11 @@ public class PublishedRecruitmentController {
         return "client/published-recruitment";
     }
     @PostMapping("/published-recruitments/create")
-    public String createJob(@ModelAttribute("jobRequest") JobRequest jobRequest) {
+    public String createJob( @RequestBody @Valid JobRequest jobRequest) {
         recruitmentService.createJob(jobRequest);
         return "client/published-recruitment";
     }
+
 
 
 

@@ -6,26 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Roboto Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.comcss?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.comcss?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
 
   <!-- bootstrap css -->
-  <link rel="stylesheet" type="text/css" href="../../static/css/css/bootstrap.min.css">
+  <link rel="stylesheet"  href="/css/bootstrap.min.css">
 
 
 
   <!-- Font Awesome -->
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
   <!-- select 2 css -->
-  <link rel="stylesheet" href="../../static/css/css/select2.min.css">
+  <link rel="stylesheet" href="/css/select2.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Owl Stylesheets -->
-  <link rel="stylesheet" href="../../static/css/css/owlcarousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="../../static/css/css/owlcarousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/owlcarousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owlcarousel/owl.theme.default.min.css">
    <!-- main css -->
-  <link rel="stylesheet" type="text/css" href="../../static/css/css/style.css">
+  <link rel="stylesheet"  href="/css/style.css">
 </head>
 <body>
 <!-- main nav -->
@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light tjnav-bar">
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
   <a href="#" class="nav-logo">
-    <img src="../../static/img/techjobs_bgw.png">
+    <img src="img/techjobs_bgw.png">
   </a>
   <button class="navbar-toggler tnavbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <!-- <span class="navbar-toggler-icon"></span> -->
@@ -101,25 +101,25 @@
         <div class="col-md-2 col-sm-12 col-12">
           <div class="job-detail-header-logo">
             <a href="#">
-              <img src="../../static/img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
+              <img src="img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
             </a>
           </div>
         </div>
         <div class="col-md-7 col-sm-12 col-12">
-          <div class="job-detail-header-desc">
-              <div class="job-detail-header-title">
-                  <a href="#">[HCM] 02 Solution Architects–Up to $2000</a>
-              </div>
-              <div class="job-detail-header-company">
-                  <a href="#">Fpt Software</a>
-              </div>
-              <div class="job-detail-header-de">
-                <ul>
-                  <li><i class="fa fa-map-marker icn-jd"></i><span>Đà Nẵng</span></li>
-                  <li><i class="fa fa-usd icn-jd"></i><span>15 triệu - 20 triệu</span></li>
-                  <li><i class="fa fa-calendar icn-jd"></i><span>15/01/2019</span></li>
-                </ul>
-              </div>
+          <div class="job-detail-header-title">
+            <a th:href="'/job/' + ${job.id}" th:text="${job.title}"></a>
+          </div>
+          <div class="job-detail-header-company">
+            <a href="#">Fpt Software</a> <!-- Bạn có thể thêm thông tin về công ty tại đây -->
+          </div>
+          <div class="job-detail-header-de">
+            <ul>
+              <li><i class="fa fa-map-marker icn-jd"></i><span th:text="${job.location}"></span></li>
+              <li><i class="fa fa-usd icn-jd"></i><span th:text="${job.salary}"></span> triệu</li>
+              <li><i class="fa fa-calendar icn-jd"></i><span th:text="${job.yoeTo}"></span></li>
+              <!-- Bạn có thể thêm thông tin khác như ngày đăng tuyển dụng -->
+            </ul>
+          </div>
               <div class="job-detail-header-tag">
                   <ul>
                       <li>
@@ -338,7 +338,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
           </h2>
           <div class="company-intro">
             <a href="#">
-              <img src="../../static/img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
+              <img src="img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
             </a>
           </div>
             <h2 class="company-intro-name">Fpt Software</h2>
@@ -367,7 +367,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -383,7 +383,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/fpt-logo.png);"></div>
+                  <div style="background-image: url(img/fpt-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -398,7 +398,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -413,7 +413,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -428,7 +428,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -443,7 +443,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -458,7 +458,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
             <div class="job-tt-item">
               
                 <a href="#" class="thumb">
-                  <div style="background-image: url(../../static/img/alipay-logo.png);"></div>
+                  <div style="background-image: url(img/alipay-logo.png);"></div>
                 </a>
               
               <div class="info">
@@ -481,7 +481,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
           <div class="col-md-12">
             <div class="home-ads">
               <a href="#">
-                <img src="../../static/img/ads1.jpg">
+                <img src="img/ads1.jpg">
               </a>
             </div>
           </div>
@@ -622,7 +622,7 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../static/css/css/js/readmore.js"></script>
+<script type="text/javascript" src="css/js/readmore.js"></script>
     <script type="text/javascript">
       $('.catelog-list').readmore({
         speed: 75,
@@ -633,15 +633,15 @@ As a Senior QA Engineer, you will be working alongside the Vietnam technology an
     </script>
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../../static/css/css/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="../../static/css/css/js/popper.min.js"></script>
-    <script src="../../static/css/css/js/bootstrap.min.js"></script>
-    <script src="../../static/css/css/js/select2.min.js"></script>
-    <script src="../../static/css/css/js/jobdata.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jobdata.js"></script>
 
     <!-- <script type="text/javascript" src="js/pagination.js"></script> -->
     <!-- Owl Stylesheets Javascript -->
-    <script src="../../static/css/css/js/owlcarousel/owl.carousel.js"></script>
+    <script src="js/owlcarousel/owl.carousel.js"></script>
     <!-- Read More Plugin -->
 
     

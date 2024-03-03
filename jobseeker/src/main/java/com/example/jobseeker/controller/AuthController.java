@@ -3,8 +3,8 @@ package com.example.jobseeker.controller;
 import com.example.jobseeker.entity.RefreshToken;
 import com.example.jobseeker.entity.Role;
 import com.example.jobseeker.entity.User;
-import com.example.jobseeker.exception.ExistedUserException;
-import com.example.jobseeker.exception.RefreshTokenNotFoundException;
+import com.example.jobseeker.exception.*;
+import com.example.jobseeker.model.reponse.JobResponse;
 import com.example.jobseeker.model.reponse.JwtResponse;
 import com.example.jobseeker.model.request.*;
 import com.example.jobseeker.repository.RefreshTokenRepository;
@@ -12,9 +12,7 @@ import com.example.jobseeker.repository.RoleRepository;
 import com.example.jobseeker.repository.UserRepository;
 import com.example.jobseeker.security.CustomUserDetails;
 import com.example.jobseeker.security.JwtUtils;
-import com.example.jobseeker.service.EmailService;
-import com.example.jobseeker.service.RecruitmentService;
-import com.example.jobseeker.service.UserService;
+import com.example.jobseeker.service.*;
 import com.example.jobseeker.statics.Roles;
 import lombok.AllArgsConstructor;
 
@@ -27,15 +25,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -54,6 +50,8 @@ public class AuthController {
     private UserService userService;
     private final EmailService emailService;
     private RecruitmentService recruitmentService;
+    private OTPService otpService;
+
 
 
 
@@ -125,6 +123,19 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
         userService.logout();
+        return ResponseEntity.ok(null);
+    }
+    @PostMapping("/forget-password")
+    public ResponseEntity<?> forgetPassword(@RequestBody @Valid ForgetPasswordRequest request) throws UserNotFoundException,
+            OTPNotMatchedException, PasswordNotMatchedException, OTPNotFoundException, OTPExpiredException {
+        userService.forgetPassword(request);
+        return ResponseEntity.ok(null);
+    }
+    @PostMapping("/otp-sending")
+    public ResponseEntity<?> otpSending(@RequestBody @Valid MailRequest request) throws MessagingException, UserNotFoundException {
+        String otp = otpService.createOTP(request.getEmail());
+        String fullName = userService.getUserName(request.getEmail());
+        emailService.otpSendingMail(fullName, request.getEmail(), otp);
         return ResponseEntity.ok(null);
     }
 

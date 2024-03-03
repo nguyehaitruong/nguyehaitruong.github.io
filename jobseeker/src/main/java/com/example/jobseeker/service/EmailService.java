@@ -58,6 +58,26 @@ public class EmailService {
         // Sending the mail
         javaMailSender.send(mimeMessage);
     }
+    public void otpSendingMail(String name, String receiver, String otp) throws MessagingException {
+        // Creating a mime message
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper;
+        // Setting multipart as true for attachments to be send
+        mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom(sender);
+        mimeMessageHelper.setTo(receiver);
+        mimeMessageHelper.setText("Bạn <b>" + name +
+                "</b> thân mến,<br>Đây là OTP của bạn, OTP có giá trị sử dụng một lần duy nhất. Vui lòng truy cập website để lấy lại mật khẩu.<br>" +
+                otp, true);
+        mimeMessageHelper.setSubject("[Larna - Học tập] Lấy lại mật khẩu");
+
+        // Adding the attachment
+//        FileSystemResource file = new FileSystemResource(new File("data/1.jpg"));
+//        mimeMessageHelper.addAttachment(file.getFilename(), file);
+
+        // Sending the mail
+        javaMailSender.send(mimeMessage);
+    }
     @Async
     public void verifyAccount(Long id, String name, String receiver) throws MessagingException {
         // Creating a mime message

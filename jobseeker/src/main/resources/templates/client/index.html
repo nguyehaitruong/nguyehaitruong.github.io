@@ -137,19 +137,21 @@
     <div class="tab-content search-tab-content" id="myTabContent">
       <!-- content tab 1 -->
       <div class="tab-pane stab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <form class="bn-search-form">
+        <form class="bn-search-form" id="searchForm" method="get">
           <div class="row">
             <div class="col-md-10 col-sm-12">
               <div class="row">
                 <div class="col-md-5">
                   <div class="input-group s-input-group">
-                    <input type="text" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
+                    <input type="text" name="keyword" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
                     <span><i class="fa fa-search"></i></span>
                   </div>
+
+                  <div id="jobsList"></div>
                 </div>
                 <div class="col-md-4">
                   <select id="computer-languages">
-                    <option value="" selected hidden >Tất cả ngôn ngữ</option>
+                    <option value="" selected hidden>Tất cả ngôn ngữ</option>
                     <option>Java</option>
                     <option>.NET</option>
                     <option>Javascript</option>
@@ -159,45 +161,34 @@
                     <option>Business Analyst</option>
                     <option>Tester</option>
                     <option>Ruby</option>
-                </select>
-                <i class="fa fa-code sfa" aria-hidden="true"></i>
+                  </select>
+                  <i class="fa fa-code sfa" aria-hidden="true"></i>
                 </div>
                 <div class="col-md-3">
                   <select id="s-provinces">
-                    <option value="" selected hidden >Tất cả địa điểm</option>
+                    <option value="" selected hidden>Tất cả địa điểm</option>
                     <option>Đà Nẵng</option>
                     <option>Hà Nội</option>
                     <option>Hồ Chí Minh</option>
                     <option>Buôn Ma Thuột</option>
                     <option>Quy Nhơn</option>
                     <option>Nha Trang</option>
-                </select>
-                <i class="fa fa-map-marker sfa" aria-hidden="true"></i>
+                  </select>
+                  <i class="fa fa-map-marker sfa" aria-hidden="true"></i>
                 </div>
               </div>
             </div>
             <div class="col-md-2 col-sm-12">
-              <button type="submit" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
+              <button type="button" id="searchButton" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
             </div>
           </div>
-        </form>  
+        </form>
+
       </div>
       <!-- (end) content tab 1 -->
       <!-- content tab 2 -->
-      <div class="tab-pane stab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-          <form class="bn-search-form">
-          <div class="row">
-            <div class="col-md-10 col-sm-12">
-                  <div class="input-group s-input-group w-100">
-                    <input type="text" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
-                    <span><i class="fa fa-search"></i></span>
-                  </div>
-            </div>
-            <div class="col-md-2 col-sm-12">
-              <button type="submit" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
-            </div>
-          </div>
-        </form> 
+
+
       </div>
       <!-- (end) content tab 2 -->
     </div>
@@ -1859,8 +1850,8 @@ $(document).ready(function() {
     </script>
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.4.1.slim.min.js"></script>
-    <script src="js/popper.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/select2.min.js"></script>
     <script src="js/jobdata.js"></script>
@@ -1872,5 +1863,33 @@ $(document).ready(function() {
 
     
 
+
 </body>
 </html>
+<script>
+  $(document).ready(function() {
+    $("#searchButton").click(function(e) {
+      e.preventDefault();
+
+
+      var keyword = $("input[name='keyword']").val();
+      console.log(keyword)
+
+
+      $.ajax({
+        type: "GET",
+        url: "/search",
+        contentType: 'application/json',
+        data: JSON.stringify(keyword),
+        success: function(data) {
+          // Xử lý dữ liệu trả về, ví dụ: cập nhật giao diện người dùng
+          console.log(data);
+        },
+        error: function(error) {
+          console.error('Error:', error);
+        }
+      });
+    });
+  });
+</script>
+

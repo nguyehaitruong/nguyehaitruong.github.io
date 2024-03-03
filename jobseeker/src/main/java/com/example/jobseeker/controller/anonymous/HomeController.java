@@ -13,10 +13,6 @@ public class HomeController {
         return "client/index";
     }
 
-    @GetMapping("/jd-page")
-    public String jdPage() {
-        return "client/jd-page";
-    }
     @GetMapping("//register-employer")
     public String showRegisterPage() {return "client/register-employers";}
     @GetMapping("/login")
@@ -25,6 +21,15 @@ public class HomeController {
     }
     @GetMapping("/register-candidate")
     public String showRegisterEmployeesPage() {return "client/register-employees";}
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordPage() {return "client/otp-forgot-password";}
+    @GetMapping("/reset-password")
+    public String redirectToExternalPage() {
+        return "client/forgot-password";
+    }
+
+
+
 
 
 }

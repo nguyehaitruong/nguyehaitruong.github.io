@@ -22,11 +22,14 @@ public class Job  extends  BaseEntity {
     @JoinColumn(name = "recruiter_id", nullable = false)
     Recruiter recruiter;
 
-    @Column(name = "location")
-    Integer location;
+    @Column(name = "location" ,length = 255)
+    String location;
 
     @Column(name = "title", length = 255)
     String title;
+
+    @Column(name = "description")
+    String description ;
 
     @Column(name = "details",nullable = true, columnDefinition = "TEXT")
     String details;
@@ -63,8 +66,6 @@ public class Job  extends  BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "close_date_time",nullable = true)
     Date closeDateTime;
-
-
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_at")

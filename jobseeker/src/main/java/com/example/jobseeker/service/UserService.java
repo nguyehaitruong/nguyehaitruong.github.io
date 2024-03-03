@@ -1,15 +1,18 @@
 package com.example.jobseeker.service;
 
+import com.example.jobseeker.entity.OTP;
 import com.example.jobseeker.entity.Role;
 import com.example.jobseeker.entity.User;
-import com.example.jobseeker.exception.RefreshTokenNotFoundException;
+import com.example.jobseeker.exception.*;
 import com.example.jobseeker.model.reponse.CommonResponse;
 import com.example.jobseeker.model.reponse.JwtResponse;
 import com.example.jobseeker.model.reponse.UserResponse;
 import com.example.jobseeker.model.reponse.UserSearchResponse;
+import com.example.jobseeker.model.request.ForgetPasswordRequest;
 import com.example.jobseeker.model.request.RefreshTokenRequest;
 import com.example.jobseeker.model.request.RegistrationRequest;
 import com.example.jobseeker.model.request.UserSearchRequest;
+import com.example.jobseeker.repository.OTPJpaRepository;
 import com.example.jobseeker.repository.RefreshTokenRepository;
 import com.example.jobseeker.repository.RoleRepository;
 import com.example.jobseeker.repository.UserRepository;
@@ -30,6 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
@@ -51,6 +55,7 @@ public class UserService {
     final RefreshTokenRepository refreshTokenRepository;
 
     final UserCustomRepository userCustomRepository;
+     OTPJpaRepository otpJpaRepository;
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
@@ -58,7 +63,7 @@ public class UserService {
     final JwtUtils jwtUtils;
 
     public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository,
-                       RoleRepository roleRepository, ObjectMapper objectMapper,
+                       RoleRepository roleRepository, ObjectMapper objectMapper, OTPJpaRepository otpJpaRepository,
                        RefreshTokenRepository refreshTokenRepository, UserCustomRepository userCustomRepository, JwtUtils jwtUtils) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -67,6 +72,8 @@ public class UserService {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userCustomRepository = userCustomRepository;
         this.jwtUtils = jwtUtils;
+        this.otpJpaRepository=otpJpaRepository;
+
     }
 
     public User registerUser(RegistrationRequest registrationRequest) {
@@ -137,6 +144,39 @@ public class UserService {
         refreshTokenRepository.logOut(userIdOptional.get());
         SecurityContextHolder.clearContext();
     }
+
+    @Transactional
+    public void forgetPassword(ForgetPasswordRequest request) throws UserNotFoundException, OTPNotMatchedException,
+            PasswordNotMatchedException, OTPNotFoundException, OTPExpiredException {
+        OTP otp = otpJpaRepository.findByOtp(request.getOtp());
+        if (ObjectUtils.isEmpty(otp)) {
+            throw new OTPNotFoundException("OTP "+ request.getOtp() + " could not be found" );
+        }
+//        if (!request.getNewPassword().equals(request.getRenewPassword())) {
+//            throw new PasswordNotMatchedException("Password don't matched");
+//        }
+        //kiểm tra otp còn trong thời gian sống hay không
+        LocalDateTime currentTime = LocalDateTime.now();
+        LocalDateTime expirationTime = otpJpaRepository.findByOtp(request.getOtp()).getLiveTime();
+        if (currentTime.isAfter(expirationTime)) {
+            throw new OTPExpiredException("OTP " + request.getOtp() + " has already expired");
+        }
+        User user = otp.getUser();
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+    }
+    public String getUserName(String email) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (!userOptional.isPresent()) {
+            throw new UserNotFoundException("User not found for email: " );
+        }
+
+        User user = userOptional.get();
+        return user.getName();
+    }
+
+
 
 
 

@@ -140,6 +140,8 @@ $(document).ready(function () {
         var companyName = document.getElementById('companyNameInput').value;
         var companyAddress = document.getElementById('companyAddressInput').value;
         var city = document.getElementById('cityInput').value;
+
+
         if (password !== confirmPassword) {
             errorElement.textContent = "Mật khẩu không khớp";
         } else {
@@ -155,6 +157,7 @@ $(document).ready(function () {
 
             };
             console.log(user);
+
 
             // Gửi yêu cầu AJAX POST đến API của bạn
             $.ajax({
@@ -242,8 +245,18 @@ $(document).ready(function () {
             var formData = {
                 title: $('#title').val(),
                 location: $('#location').val(),
+                description: $('#jobDescription').val(),
+                details: $('#jobRequirements').val(),
+                workType: $('#natureWork').val(),
+                salary:$('#jobSalary').val(),
+                literacy:$('#jobLevel').val(),
+                benefits:$('#jobBenefits').val(),
+                salary:$('#jobSalary').val(),
+
+
 
             };
+
             console.log(formData)
         $.ajax({
             type: 'POST',

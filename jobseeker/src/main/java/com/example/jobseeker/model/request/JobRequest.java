@@ -3,13 +3,16 @@ package com.example.jobseeker.model.request;
 import com.example.jobseeker.entity.Recruiter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class JobRequest {
     private Long recruiterId;
-    private Integer location;
+    private String location;
+    private String description;
     private String title;
     private String details;
     private Date yoeFrom;

@@ -11,6 +11,7 @@ import com.example.jobseeker.repository.JobRepository;
 import com.example.jobseeker.repository.RecruiterRepository;
 import com.example.jobseeker.repository.RoleRepository;
 import com.example.jobseeker.repository.UserRepository;
+import com.example.jobseeker.security.SecurityUtils;
 import com.example.jobseeker.statics.Roles;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,10 +65,13 @@ public class RecruitmentService {
     }
 
     public void createJob(@Valid JobRequest jobRequest) {
-        Recruiter recruiter = null;
 
+        Recruiter recruiter;
         if (jobRequest.getRecruiterId() != null) {
             recruiter = recruiterRepository.findById(jobRequest.getRecruiterId()).get();
+        } else {
+            Optional<Long> id = SecurityUtils.getCurrentUserLoginId();
+            recruiter = id.isPresent() ? recruiterRepository.findById(id.get()).get() : recruiterRepository.findById(1L).get();
         }
 
 

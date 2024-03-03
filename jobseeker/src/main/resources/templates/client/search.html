@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i&display=swap" rel="stylesheet">
 
   <!-- bootstrap css -->
-  <link rel="stylesheet" type="text/css" href="../../static/css/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
 
 
@@ -18,14 +18,14 @@
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
   <!-- select 2 css -->
-  <link rel="stylesheet" href="../../static/css/css/select2.min.css">
+  <link rel="stylesheet" href="css/select2.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Owl Stylesheets -->
-  <link rel="stylesheet" href="../../static/css/css/owlcarousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="../../static/css/css/owlcarousel/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owlcarousel/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owlcarousel/owl.theme.default.min.css">
    <!-- main css -->
-  <link rel="stylesheet" type="text/css" href="../../static/css/css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <!-- main nav -->
@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light tjnav-bar">
   <!-- <a class="navbar-brand" href="#">Navbar</a> -->
   <a href="#" class="nav-logo">
-    <img src="../../static/img/techjobs_bgw.png">
+    <img src="img/techjobs_bgw.png">
   </a>
   <button class="navbar-toggler tnavbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <!-- <span class="navbar-toggler-icon"></span> -->
@@ -431,224 +431,51 @@
       <h4 class="search-find">Tìm thấy 4 việc làm đang tuyển dụng</h4>
       <div class="job-board-wrap">
         <div class="job-group">
-          <div class="job pagi">
-              <div class="job-content">
+            <div th:each="job : ${jobs}" class="job-container" th:id="'job-' + ${job.id}">
+                <!-- Job Logo -->
                 <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
+                    <!-- Nếu job có một trường image, bạn có thể sử dụng th:src như sau -->
+                    <!--<a th:href="@{#}">
+                        <img th:src="@{'img/' + ${job.image}}" class="job-logo-ima" alt="job-logo">
+                    </a>-->
                 </div>
 
+                <!-- Job Description -->
                 <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">[HCM] 02 Solution Architects–Up to $2000</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">Fpt Software</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Đà Nẵng</a>
-                  </div>
+                    <!-- Job Title -->
+                    <div class="job-title">
+                        <!-- Thêm id và href cho thẻ a -->
+                        <a th:id="'job-title-' + ${job.id}" th:href="@{'/job/' + ${job.id}}" th:text="${job.title}"></a>
+                    </div>
 
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> Java</a>
+                    <!-- Job Company and Location -->
+                    <div class="job-company">
+                        <!-- Nếu bạn muốn thêm id và href cho thẻ a ở đây, bạn có thể tương tự -->
+                        <!--<a th:id="'job-company-' + ${job.id}" th:href="@{'/company/' + ${job.companyId}}" th:text="${job.company}"></a> |-->
+<!--                        <a th:id="'job-address-' + ${job.id}" th:href="@{'/location/' + ${job.locationId}}" class="job-address">-->
+<!--                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
+<!--                            <span th:text="${job.location}"></span>-->
+<!--                        </a>-->
                     </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/12/2019</strong></span>
-                    </div>
-                  </div>
+
+                    <!-- Các thông tin công việc khác -->
+                    <!-- ... -->
                 </div>
+
+                <!-- Apply Now Button -->
                 <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
+                    <!-- Thêm id và href cho nút "Apply Now" -->
+                    <a th:id="'apply-now-btn-' + ${job.id}" th:href="@{'/apply/' + ${job.id}}" class="btn btn-appl">Apply Now</a>
                 </div>
-              </div>
-            </div>
-            <div class="job pagi">
-              <div class="job-content">
-                <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/alipay-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
-                </div>
-
-                <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">Fullstack .NET Developer (Angular/React)</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">Orient Software</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Hà Nội</a>
-                  </div>
-
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> .NET</a>
-                    </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/02/2020</strong></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
-                </div>
-              </div>
-            </div>
-            <div class="job pagi">
-              <div class="job-content">
-                <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/nvg-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
-                </div>
-
-                <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">Frontend Developer (JavaScript, ReactJS)</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">mgm technology</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Đà Nẵng</a>
-                  </div>
-
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> JavaScript, ReactJS</a>
-                    </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/12/2019</strong></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
-                </div>
-              </div>
-            </div>
-            <div class="job pagi">
-              <div class="job-content">
-                <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/luxoft-vietnam-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
-                </div>
-
-                <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">IVI System Test Engineer</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">NVG TECHNOLOGY</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Đà Nẵng</a>
-                  </div>
-
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> Javascript</a>
-                    </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/12/2019</strong></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
-                </div>
-              </div>
-            </div>
-            <div class="job pagi">
-              <div class="job-content">
-                <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
-                </div>
-
-                <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">[HCM] 02 Solution Architects–Up to $2000</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">Fpt Software</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Đà Nẵng</a>
-                  </div>
-
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> Java</a>
-                    </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/12/2019</strong></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
-                </div>
-              </div>
-            </div>
-            <div class="job pagi">
-              <div class="job-content">
-                <div class="job-logo">
-                  <a href="#">
-                    <img src="../../static/img/fpt-logo.png" class="job-logo-ima" alt="job-logo">
-                  </a>
-                </div>
-
-                <div class="job-desc">
-                  <div class="job-title">
-                    <a href="#">[HCM] 02 Solution Architects–Up to $2000</a>
-                  </div>
-                  <div class="job-company">
-                    <a href="#">Fpt Software</a> | <a href="#" class="job-address"><i class="fa fa-map-marker" aria-hidden="true"></i>
-Đà Nẵng</a>
-                  </div>
-
-                  <div class="job-inf">
-                    <div class="job-main-skill">
-                      <i class="fa fa-code" aria-hidden="true"></i>  <a href="#"> Java</a>
-                    </div>
-                    <div class="job-salary">
-                      <i class="fa fa-money" aria-hidden="true"></i>
-                      <span class="salary-min">15<em class="salary-unit">triệu</em></span>
-                      <span class="salary-max">35 <em class="salary-unit">triệu</em></span>
-                    </div>
-                    <div class="job-deadline">
-                      <span><i class="fa fa-clock-o" aria-hidden="true"></i>  Hạn nộp: <strong>31/12/2019</strong></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="wrap-btn-appl">
-                  <a href="#" class="btn btn-appl">Apply Now</a>
-                </div>
-              </div>
             </div>
 
-</div>
+
+
+
+
+
+
+        </div>
       </div>
       
     </div>
@@ -782,7 +609,7 @@ Hà Nội</a>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="../../static/css/css/js/readmore.js"></script>
+<script type="text/javascript" src="css/js/readmore.js"></script>
     <script type="text/javascript">
       $('.catelog-list').readmore({
         speed: 75,
@@ -793,15 +620,15 @@ Hà Nội</a>
     </script>
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../../static/css/css/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="../../static/css/css/js/popper.min.js"></script>
-    <script src="../../static/css/css/js/bootstrap.min.js"></script>
-    <script src="../../static/css/css/js/select2.min.js"></script>
-    <script src="../../static/css/css/js/jobdata.js"></script>
+    <script src="js/jquery-3.4.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/jobdata.js"></script>
 
-    <script type="text/javascript" src="../../static/css/css/js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <!-- Owl Stylesheets Javascript -->
-    <script src="../../static/css/css/js/owlcarousel/owl.carousel.js"></script>
+    <script src="js/owlcarousel/owl.carousel.js"></script>
     <!-- Read More Plugin -->
 
     
