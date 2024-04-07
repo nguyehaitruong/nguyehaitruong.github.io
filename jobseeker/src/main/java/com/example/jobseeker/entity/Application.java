@@ -20,15 +20,15 @@ public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     User user;
 
     @ManyToOne
     @JoinColumn(name = "job_id", nullable = false)
-    Job Job;
+    Job job;
 
 
     @Column(name = "cv", columnDefinition = "VARCHAR(255)")

@@ -85,7 +85,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -103,15 +103,16 @@ public class AuthController {
                 .build();
         refreshTokenRepository.save(refreshTokenEntity);
 
-        return JwtResponse.builder()
+        JwtResponse response = JwtResponse.builder()
                 .jwt(jwt)
                 .refreshToken(refreshToken)
                 .id(userDetails.getId())
                 .email(userDetails.getUsername())
-//                .roles(roles)
                 .build();
 
+        return ResponseEntity.ok(response); // Trả về mã 200 (OK) và dữ liệu phản hồi
     }
+
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@RequestBody @Valid RefreshTokenRequest request) {
         try {

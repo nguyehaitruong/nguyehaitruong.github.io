@@ -12,9 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
-    // Các phương thức truy vấn tùy chọn có thể được thêm vào đây nếu cần
-    Optional<Recruiter> findByRecruiterId(Long userId);
 
-    List<Job> findByTitleContainingOrDescriptionContainingOrLocationContaining(String title, String description, String location);
+    List<Job> findByTitleContaining(String title);
+    List<Job> findByRecruiterId(Long recruiterId);
 
 }

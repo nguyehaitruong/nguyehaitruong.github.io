@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JobRequest {
-    private Long recruiterId;
+    private Long userId;
     private String location;
     private String description;
     private String title;

@@ -22,11 +22,13 @@ public class SearchCotroller {
     private JobService jobService;
 
     @GetMapping("/search")
-    public String searchJobs(@RequestParam(required = false) String keyword, Model model){
+    public String searchJobs(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<Job> jobs = jobService.searchJobs(keyword);
         model.addAttribute("jobs", jobs);
-        return  "client/search";
+        return "client/search";
     }
+
+
 
     @GetMapping("/job/{id}")
     public String getJobDetails(@PathVariable Long id, Model model) {

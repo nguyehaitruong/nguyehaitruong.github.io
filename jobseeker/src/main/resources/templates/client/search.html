@@ -114,7 +114,7 @@
               <div class="row">
                 <div class="col-md-5">
                   <div class="input-group s-input-group">
-                    <input type="text" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
+                      <input type="text" name="keyword" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
                     <span><i class="fa fa-search"></i></span>
                   </div>
                 </div>
@@ -148,7 +148,7 @@
               </div>
             </div>
             <div class="col-md-2 col-sm-12">
-              <button type="submit" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
+              <button type="submit" id="searchButton" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
             </div>
           </div>
         </form>  
@@ -160,12 +160,12 @@
           <div class="row">
             <div class="col-md-10 col-sm-12">
                   <div class="input-group s-input-group w-100">
-                    <input type="text" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
+                      <input type="text" name="keyword" class="form-control sinput" placeholder="Nhập kỹ năng, công việc,...">
                     <span><i class="fa fa-search"></i></span>
                   </div>
             </div>
             <div class="col-md-2 col-sm-12">
-              <button type="submit" class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
+                <button type="button"  class="btn btn-primary btn-search col-sm-12">Tìm kiếm</button>
             </div>
           </div>
         </form> 
@@ -435,9 +435,9 @@
                 <!-- Job Logo -->
                 <div class="job-logo">
                     <!-- Nếu job có một trường image, bạn có thể sử dụng th:src như sau -->
-                    <!--<a th:href="@{#}">
-                        <img th:src="@{'img/' + ${job.image}}" class="job-logo-ima" alt="job-logo">
-                    </a>-->
+<!--                    <a th:href="@{#}">-->
+<!--                        <img th:src="@{'img/' + ${job.image}}" class="job-logo-ima" alt="job-logo">-->
+<!--                    </a>-->
                 </div>
 
                 <!-- Job Description -->
@@ -450,8 +450,8 @@
 
                     <!-- Job Company and Location -->
                     <div class="job-company">
-                        <!-- Nếu bạn muốn thêm id và href cho thẻ a ở đây, bạn có thể tương tự -->
-                        <!--<a th:id="'job-company-' + ${job.id}" th:href="@{'/company/' + ${job.companyId}}" th:text="${job.company}"></a> |-->
+
+<!--                        <a th:id="'job-company-' + ${job.id}" th:href="@{'/company/' + ${job.companyId}}" th:text="${job.company}"></a> -->
 <!--                        <a th:id="'job-address-' + ${job.id}" th:href="@{'/location/' + ${job.locationId}}" class="job-address">-->
 <!--                            <i class="fa fa-map-marker" aria-hidden="true"></i>-->
 <!--                            <span th:text="${job.location}"></span>-->
@@ -463,19 +463,32 @@
                 </div>
 
                 <!-- Apply Now Button -->
+                <!-- Đoạn mã HTML và Thymeleaf -->
                 <div class="wrap-btn-appl">
-                    <!-- Thêm id và href cho nút "Apply Now" -->
-                    <a th:id="'apply-now-btn-' + ${job.id}" th:href="@{'/apply/' + ${job.id}}" class="btn btn-appl">Apply Now</a>
+                    <button class="btn btn-appl apply-now-btn" th:id="'apply-now-btn-' + ${job.id}" th:data-job-id="${job.id}">Apply Now</button>
                 </div>
+
+                <!-- Modal -->
+                <div class="modal fade" th:id="'myModal-' + ${job.id}">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <form id="applicationForm" enctype="multipart/form-data">
+                                <input type="hidden" id="jobIdInput" name="jobId">
+                                <input type="file" id="cvImage" name="cvImage" accept="image/*">
+                                <button type="submit" id="submitApplication">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
             </div>
-
-
-
-
-
-
-
-        </div>
       </div>
       
     </div>
@@ -609,7 +622,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript" src="css/js/readmore.js"></script>
+<script type="text/javascript" src="js/readmore.js"></script>
     <script type="text/javascript">
       $('.catelog-list').readmore({
         speed: 75,
@@ -620,7 +633,7 @@
     </script>
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.4.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/select2.min.js"></script>
@@ -631,7 +644,75 @@
     <script src="js/owlcarousel/owl.carousel.js"></script>
     <!-- Read More Plugin -->
 
-    
 
 </body>
 </html>
+<script>
+    $(document).ready(function() {
+        $("#searchButton").click(async function(e) {
+            e.preventDefault();
+
+            var keyword = $("input[name='keyword']").val();
+            console.log(keyword);
+
+            var encodedKeyword = encodeURIComponent(keyword);
+
+            await $.ajax({
+                type: "GET",
+                url: "/search?keyword=" + encodedKeyword,
+                contentType: 'application/json; charset=utf-8',
+                success: function(data) {
+                    // Xử lý dữ liệu trả về, ví dụ: cập nhật giao diện người dùng
+                    console.log("Đã gửi lên server");
+
+                    // Chuyển hướng sau khi nhận được phản hồi
+                    window.location.href = "/search?keyword=" + encodedKeyword;
+                },
+                error: function(error) {
+                    console.error('Lỗi:', error);
+                }
+            });
+        });
+
+        $(".apply-now-btn").click(function() {
+            // Lấy id của công việc từ thuộc tính data-job-id
+            var jobId = $(this).data('job-id');
+            // Hiển thị modal tương ứng với công việc
+            $("#myModal-" + jobId).modal("show");
+            // Thiết lập giá trị của jobId vào trường hidden
+            $("#jobIdInput").val(jobId);
+        });
+
+        // Xử lý khi form được submit
+        $("#applicationForm").submit(function(e) {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+            // Lấy giá trị của jobId từ trường ẩn
+            var jobId = $("#jobIdInput").val();
+
+            // Thêm jobId vào formData
+            var formData = new FormData(this);
+            formData.append("job.id", jobId); // Gửi jobId vào trường job.id
+
+            // Gửi AJAX request
+            $.ajax({
+                type: "POST",
+                url: "/apply",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log(response);
+                    // Xử lý phản hồi thành công ở đây
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    // Xử lý lỗi ở đây
+                }
+            });
+        });
+
+
+    });
+
+</script>

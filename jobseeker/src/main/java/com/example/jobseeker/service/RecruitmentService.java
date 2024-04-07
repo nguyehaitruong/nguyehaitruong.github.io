@@ -65,15 +65,13 @@ public class RecruitmentService {
     }
 
     public void createJob(@Valid JobRequest jobRequest) {
-
         Recruiter recruiter;
-        if (jobRequest.getRecruiterId() != null) {
-            recruiter = recruiterRepository.findById(jobRequest.getRecruiterId()).get();
+        if (jobRequest.getUserId() != null) {
+            recruiter = recruiterRepository.findByUserId(jobRequest.getUserId()).orElseThrow(() -> new RuntimeException("Recruiter not found"));
         } else {
             Optional<Long> id = SecurityUtils.getCurrentUserLoginId();
-            recruiter = id.isPresent() ? recruiterRepository.findById(id.get()).get() : recruiterRepository.findById(1L).get();
+            recruiter = id.isPresent() ? recruiterRepository.findById(id.get()).orElseThrow(() -> new RuntimeException("Recruiter not found")) : recruiterRepository.findById(1L).orElseThrow(() -> new RuntimeException("Recruiter not found"));
         }
-
 
         Job job = Job.builder()
                 .recruiter(recruiter)
@@ -92,10 +90,9 @@ public class RecruitmentService {
                 .status(jobRequest.getStatus())
                 .build();
 
-        //create a new course
-
         jobRepository.save(job);
     }
+
 
 }
 

@@ -26,6 +26,40 @@
   <link rel="stylesheet" href="css/owlcarousel/owl.theme.default.min.css">
    <!-- main css -->
   <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style>
+    /* Định dạng kích thước và đường viền cho ảnh avatar */
+    .avatarImg {
+      width: 40px; /* Độ rộng */
+      height: 40px; /* Độ cao */
+      border-radius: 50%; /* Để làm tròn hình ảnh thành hình tròn */
+      border: 2px solid #ffffff; /* Đường viền và màu sắc */
+      margin-right: 10px; /* Khoảng cách với phần tử bên cạnh */
+    }
+
+    /* Định dạng khi ảnh avatar được đặt trong dropdown */
+    .dropdown-menu.tdropdown .avatarImg {
+      width: 30px; /* Độ rộng */
+      height: 30px; /* Độ cao */
+      border: 1px solid #ced4da; /* Đường viền và màu sắc */
+      margin-right: 5px; /* Khoảng cách với phần tử bên cạnh */
+    }
+
+    /* Định dạng vị trí của chữ trong avatar */
+    .avatarText {
+      position: absolute; /* Vị trí tuyệt đối */
+      top: 50%; /* Canh chỉnh vị trí lên phía trên */
+      left: 50%; /* Canh chỉnh vị trí sang trái */
+      transform: translate(-50%, -50%); /* Dịch chuyển vị trí đi 50% theo cả hai hướng */
+    }
+
+    /* Định dạng các thẻ li chứa các liên kết */
+    .nav-item {
+      display: flex; /* Hiển thị các thẻ li theo kiểu flex */
+      align-items: center; /* Canh chỉnh các phần tử bên trong theo trục dọc */
+    }
+
+  </style>
+
 </head>
 <body>
 <!-- main nav -->
@@ -72,9 +106,27 @@
       <li class="nav-item">
         <a class="nav-link" href="/register-employer">Đăng Ký Nhà Tuyển Dụng</a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link" href="/login">Đăng Nhập</a>
+        <a class="nav-link" id="login-btn" href="/login">Đăng Nhập</a>
+      </li>
+      <!-- Chèn phần dropdown vào đây -->
+      <li class="nav-item dropdown d-none" id="avatarDropdownItem">
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="avatarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="avatarImgWrapper">
+              <img src="data:image/jpeg;base64,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" alt="Avatar" class="avatarImg rounded-circle">
+            </div>
+          </a>
+
+          <div class="dropdown-menu tdropdown" aria-labelledby="avatarDropdown">
+            <!-- Gắn ID cho nút logout -->
+            <a id="logoutBtn" class="dropdown-item" href="#">Đăng xuất</a>
+
+            <a class="dropdown-item" href="#">Đến trang cá nhân</a>
+            <button id="jobsListBtn" class="dropdown-item">Xem danh sách công việc</button>
+
+          </div>
+        </div>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,6 +140,7 @@
         <a class="nav-link btn-employers" href="#" tabindex="-1" aria-disabled="true">Nhà Tuyển Dụng</a>
       </li>
     </ul>
+
   </div>
 </nav>
   </div>
@@ -137,7 +190,7 @@
     <div class="tab-content search-tab-content" id="myTabContent">
       <!-- content tab 1 -->
       <div class="tab-pane stab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-        <form class="bn-search-form" id="searchForm" method="get">
+        <form class="bn-search-form" id="searchForm" method="GET">
           <div class="row">
             <div class="col-md-10 col-sm-12">
               <div class="row">
@@ -1860,36 +1913,117 @@ $(document).ready(function() {
     <!-- Owl Stylesheets Javascript -->
     <script src="js/owlcarousel/owl.carousel.js"></script>
     <!-- Read More Plugin -->
+    <script>
+      $(document).ready(function() {
+        $("#searchButton").click(async function(e) {
+          e.preventDefault();
 
-    
+          var keyword = $("input[name='keyword']").val();
+          console.log(keyword);
+
+          var encodedKeyword = encodeURIComponent(keyword);
+
+          await $.ajax({
+            type: "GET",
+            url: "/search?keyword=" + encodedKeyword,
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+              // Xử lý dữ liệu trả về, ví dụ: cập nhật giao diện người dùng
+              console.log("Đã gửi lên server");
+
+              // Chuyển hướng sau khi nhận được phản hồi
+              window.location.href = "/search?keyword=" + encodedKeyword;
+            },
+            error: function(error) {
+              console.error('Lỗi:', error);
+            }
+          });
+        });
+        $("#logoutBtn").click(async function(e) {
+          e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+
+          try {
+            // Gọi API để đăng xuất người dùng
+            const response = await fetch('/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                // Thêm token vào header nếu cần thiết
+                // 'Authorization': 'Bearer ' + accessToken
+              }
+            });
+
+            if (!response.ok) {
+              throw new Error('Đã xảy ra lỗi khi đăng xuất');
+            }
+
+            // Xóa token khỏi localStorage nếu đăng xuất thành công
+            localStorage.removeItem('accessToken');
+
+            // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng của bạn
+            window.location.href = '/login'; // Điều hướng đến trang đăng nhập
+            // window.location.href = '/'; // Điều hướng đến trang chính của ứng dụng
+          } catch (error) {
+            console.error('Đã xảy ra lỗi:', error);
+          }
+        });
+
+        $('#jobsListBtn').click(function(e) {
+          e.preventDefault();
+
+          var userId = localStorage.getItem('userId');
+          console.log("bấm rồi bạn ơi");
+          $.ajax({
+            type: 'GET',
+            url: '/jobs/' + userId, // Nối userId vào đường dẫn URL
+            contentType: 'application/json',
+            success: function(data) {
+
+            },
+            error: function(error) {
+              console.error('Error:', error);
+            }
+          });
+        });
+
+
+
+
+      });
+
+    </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Kiểm tra xem token có tồn tại trong local storage không
+    var token = localStorage.getItem('accessToken');
+    console.log(token)
+
+    // Hàm để hiển thị avatar và ẩn nút đăng nhập
+    function toggleAuthentication(token) {
+      if (token) {
+        // Hiển thị dropdown và ẩn nút đăng nhập
+        document.getElementById('avatarDropdownItem').classList.remove('d-none');
+        document.getElementById('login-btn').classList.add('d-none');
+      } else {
+        // Ẩn dropdown và hiện nút đăng nhập
+        document.getElementById('avatarDropdownItem').classList.add('d-none');
+        document.getElementById('login-btn').classList.remove('d-none');
+      }
+    }
+
+    // Gọi hàm toggleAuthentication khi tải trang
+    toggleAuthentication(token);
+  });
+
+
+
+
+
+</script>
+
+
 
 
 </body>
 </html>
-<script>
-  $(document).ready(function() {
-    $("#searchButton").click(function(e) {
-      e.preventDefault();
-
-
-      var keyword = $("input[name='keyword']").val();
-      console.log(keyword)
-
-
-      $.ajax({
-        type: "GET",
-        url: "/search",
-        contentType: 'application/json',
-        data: JSON.stringify(keyword),
-        success: function(data) {
-          // Xử lý dữ liệu trả về, ví dụ: cập nhật giao diện người dùng
-          console.log(data);
-        },
-        error: function(error) {
-          console.error('Error:', error);
-        }
-      });
-    });
-  });
-</script>
 

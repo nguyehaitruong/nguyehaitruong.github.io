@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Job</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Quản lý Job</h2>
+
+    <button class="btn btn-success" onclick="createNewJob()">Tạo mới Job</button>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Tên Job</th>
+            <th>Trạng thái</th>
+            <th>Chi tiết</th>
+            <th>Thao tác</th>
+            <th>Ứng viên</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Sử dụng Thymeleaf để lặp qua danh sách công việc và hiển thị thông tin -->
+        <tr th:each="job : ${jobs}">
+            <td th:text="${job.id}"></td>
+            <td th:text="${job.title}"></td>
+            <td th:text="${job.status}"></td>
+            <td><a th:href="@{'/detail/' + ${job.id}}">Chi tiết</a></td>
+            <td><button class="btn btn-primary" th:onclick="'editJob(' + ${job.id} + ')'">Sửa</button></td>
+            <td><a th:href="@{'/candidates/' + ${job.id}}">Danh sách ứng viên</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    function createNewJob() {
+        // Xử lý logic tạo mới job, có thể chuyển hướng đến trang tạo mới job
+        alert("Tạo mới Job!");
+    }
+
+    function editJob(jobId) {
+        // Xử lý logic sửa job, có thể chuyển hướng đến trang sửa job
+        alert("Sửa Job có ID: " + jobId);
+    }
+</script>
+
+</body>
+</html>

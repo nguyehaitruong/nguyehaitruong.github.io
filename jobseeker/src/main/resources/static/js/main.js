@@ -214,33 +214,38 @@ $(document).ready(function () {
 });
 
     $(document).ready(function () {
-    $('#employerLoginBtn').click(function() {
-        // Lấy dữ liệu đăng nhập từ form hoặc nơi khác
-        var username = $('.employerUsernameInput').val();
-        var password = $('.employerPasswordInput').val();
-        var user = {
-            email: username,
-            password: password
-        };
-        console.log(user)
+        $(document).ready(function () {
+            $('#employerLoginBtn').click(function() {
+                var username = $('.employerUsernameInput').val();
+                var password = $('.employerPasswordInput').val();
+                var user = {
+                    email: username,
+                    password: password
+                };
 
-        $.ajax({
-            type: 'POST',
-            url: '/api/auth/login',
-            contentType: 'application/json',
-            data: JSON.stringify(user),
-            success: function(data) {
-                console.log(user);
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/auth/login',
+                    contentType: 'application/json',
+                    data: JSON.stringify(user),
+                    success: function(data) {
+                        // Lưu token và user ID vào Local Storage
+                        localStorage.setItem('accessToken', data.jwt);
+                        localStorage.setItem('userId', data.id);
+                        // Đăng nhập thành công, chuyển hướng đến trang chủ
+                        window.location.href = '/';
+                    },
+                    error: function(error) {
+                        console.error('Lỗi:', error);
+                    }
+                });
 
-
-
-            },
-            error: function(error) {
-                console.error('Error:', error);
-            }
+            });
         });
-    });
-        $('.btn-submit-recuitment').click(function()  {
+
+        $('.btn-submit-recuitment').click(function() {
+            // Lấy userId từ localStorage
+            var userId = localStorage.getItem('userId');
 
             var formData = {
                 title: $('#title').val(),
@@ -248,31 +253,32 @@ $(document).ready(function () {
                 description: $('#jobDescription').val(),
                 details: $('#jobRequirements').val(),
                 workType: $('#natureWork').val(),
-                salary:$('#jobSalary').val(),
-                literacy:$('#jobLevel').val(),
-                benefits:$('#jobBenefits').val(),
-                salary:$('#jobSalary').val(),
-
-
-
+                salary: $('#jobSalary').val(),
+                literacy: $('#jobLevel').val(),
+                benefits: $('#jobBenefits').val(),
+                userId: userId // Thêm userId vào formData
             };
 
             console.log(formData)
-        $.ajax({
-            type: 'POST',
-            url: '/published-recruitments/create',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-            success: function (response) {
-                console.log('Job created successfully');
-
-            },
-            error: function (error) {
-                console.error('Error creating job:', error.responseJSON.message);
-
-            }
+            $.ajax({
+                type: 'POST',
+                url: '/published-recruitments/create',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    console.log('Công việc đã được tạo thành công');
+                },
+                error: function(error) {
+                    console.error('Lỗi khi tạo công việc:', error.responseJSON.message);
+                }
+            });
         });
-});})
+
+
+
+
+    });
+
 
 
 
